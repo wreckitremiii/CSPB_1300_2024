@@ -1,0 +1,15 @@
+week_temps_f = "75.1,77.7,83.2,82.5,81.0,79.5,85.7"
+temperatures = week_temps_f.split(",") # creating a list from string above, diving the items on the list by the commas in the string
+
+print(temperatures)
+
+number = 0 # creating an accum variable for total number of items on list
+accum = 0 # creating an accum variable for sum of numbers on list
+
+for temp in temperatures: # iterate through list to create sum of values on list
+    accum += float(temp) # sums up items on list
+    number += 1 # creates a total  number of items on the list
+
+avg_temp = accum / number # creates average of item values on list
+
+print(avg_temp)
