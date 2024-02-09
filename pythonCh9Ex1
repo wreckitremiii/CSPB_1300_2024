@@ -1,0 +1,30 @@
+classes = ["MATH 150", "PSYCH 111", "PSYCH 313", "PSYCH 412", "MATH 300", "MATH 404", "MATH 206", "ENG 100", "ENG 103", "ENG 201", "PSYCH 508", "ENG 220", "ENG 125", "ENG 124"]
+# math classes >= 300 == upper
+# english classes >= 200 == upper
+# pscyh classes >= 400 == upper
+upper = []
+lower = []
+
+for c in classes:
+    course_cat = c.split()[0] # assigning a variable to the course category
+    course_number = int(c.split()[1]) # assigning a variable to the course number
+    print(course_cat)
+    print(course_number)
+    if course_cat == "MATH": # using category variable to set limits for class number
+        if course_number >= 300:
+                upper.append(c) # adding this to the upper level list if the value holds true to the if statement above
+        else:
+                lower.append(c) # adding this to the lower level list if the value doesn't hold true to the if statement above
+    elif course_cat == "ENG": # using category variable to set limits for class number
+        if course_number >= 200:
+                upper.append(c) # adding this to the upper level list if the value holds true to the if statement above
+        else:
+            lower.append(c) # adding this to the lower level list if the value doesn't hold true to the if statement above
+    elif course_cat == "PSYCH": # using category variable to set limits for class number
+        if course_number >= 400:
+            upper.append(c) # adding this to the upper level list if the value holds true to the if statement above
+        else:
+            lower.append(c) # adding this to the lower level list if the value doesn't hold true to the if statement above
+                
+print(upper)
+print(lower)
