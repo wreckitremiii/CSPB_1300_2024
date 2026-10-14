@@ -1,0 +1,329 @@
+//
+//  main.cpp
+//  CppFinalProject
+//
+//  Created by Anna Pecora on 4/21/24.
+//
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <opencv2/opencv.hpp>
+/*
+ #ifndef IMAGE_PROCESSING_H
+#define IMAGE_PROCESSING_H
+ */
+using namespace std;
+/*
+ For each of the image processing functions below, you will be:
+ - taking in the original image as a parameter,
+ - creating and initializing a new 2-dimensional vector to store the new image data,
+ - iterating through the original image,
+ - performing the requested image processing operation on the pixel values,
+ - saving the modified pixel values to the new vector,
+ - and returning the new vector
+*/
+/*
+ User can enter an input BMP filename
+ This is the image file that the operations will be performed on
+ Displays a menu of available selections to the user
+ One selection to change the input image if desired
+ One for each of the image processing functions
+ User can enter their desired operation / menu selection
+ User can enter the desired output BMP filename
+ This is the file where the modified image will be saved to
+ Remember to never specify the original input BMP filename or else it will be overwritten!
+ User can enter the necessary parameters for the selected operation
+ For example: scaling factor, number of rotations, etc.
+ This applies to processes 2, 5, 6, 8, 9
+ Displays confirmation that the operation was successful
+ Or an error message if the operation failed
+ User is brought back to the main menu after each operation so they can continue performing operations until they chose to exit out of the program
+ It is very important that your program continues to accept user input until they explicitly signal they want to exit
+ Hint: You should use a while loop for your menu system
+ User can gracefully exit out of the program
+ */
+struct Pixel
+{
+    int red;
+    int green;
+    int blue;
+};
+
+// read image
+vector<vector<Pixel>> read_image(string filename){
+    vector<vector<Pixel>> image;
+    if(img.empty())
+    {
+        std::cout<<"COULD NOT READ IMAGE"<<std::endl;
+        return 1;
+    }
+    return image;
+}
+// write image
+bool write_image(string new_filename, const vector<vector<Pixel>>& new_image);
+// process 1 - Adds vignette effect to image (dark corners)
+vector<vector<Pixel>> process_1(const vector<vector<Pixel>>& image, int height, int width){
+    /*
+     def process1(img):
+         width=img.getWidth()
+         height=img.getHeight()
+         newimg = image.EmptyImage(width,height)
+         for row in range(height):
+             for col in range(width):
+                 p = img.getPixel(col, row)
+                 # find the distance to the center
+                 distance = math.sqrt((col - width/2)**2+(row - height/2)**2)
+                 scaling_factor = (height - distance)/height
+                 newred = p.getRed()*scaling_factor
+                 newgreen = p.getGreen()*scaling_factor
+                 newblue = p.getBlue()*scaling_factor
+                 #set new pixel to new color values.
+                 newpixel = image.Pixel(newred, newgreen, newblue)
+                 newimg.setPixel(col, row, newpixel)
+
+         newwin=image.ImageWin(width,height)
+         newimg.draw(newwin)
+
+         return newimg
+     */
+    //int num_rows = image.size();  // WIDTH Gets the number of rows (i.e. height) in a 2D vector named image
+    //int num_columns = image[0].size();  // HEIGHT Gets the number of columns (i.e. width) in a 2D vector named image
+
+    //vector<vector<Pixel>> new_image(num_rows, vector<Pixel> (num_columns));
+    vector<vector<Pixel>> p1_image(height, vector<Pixel> (width));
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            int distance = pow(sqrt((col - width / 2)), 2) + pow(sqrt((row - height  / 2)), 2);
+            int scaleFact = (height  - distance) / width;
+            int blue_color = image[row][col].blue;
+            int red_color = image[row][col].red;
+            int green_color = image[row][col].green;
+            int newBlue = blue_color * scaleFact;
+            int newRed = red_color * scaleFact;
+            int newGreen = green_color * scaleFact;
+            p1_image[row][col].blue = newBlue;
+            p1_image[row][col].red = newRed;
+            p1_image[row][col].green = newGreen;
+            // Get the blue color for the Pixel located at index row, col in the input 2D vector
+            
+            // Set the blue color for the Pixel located at index row, col in a new 2D vector to 50
+            //new_image[row][col].blue = 50;
+        }
+    }
+    return p1_image;
+}
+// process 2 - Adds Clarendon effect to image (darks darker and lights lighter) by a scaling factor
+vector<vector<Pixel>> process_2(const vector<vector<Pixel>>& image, int height, int width, double scaling_factor){
+    vector<vector<Pixel>> p2_image(height, vector<Pixel> (width));
+    return p2_image;
+}
+// process 3 - Grayscale image
+vector<vector<Pixel>> process_3(const vector<vector<Pixel>>& image, int height, int width){
+    vector<vector<Pixel>> p3_image(height, vector<Pixel> (width));
+    return p3_image;
+}
+// process 4 - Rotates image by 90 degrees clockwise (not counter-clockwise)
+vector<vector<Pixel>> process_4(const vector<vector<Pixel>>& image, int height, int width){
+    vector<vector<Pixel>> p4_image(height, vector<Pixel> (width));
+    return p4_image;
+}
+// process 5 - Rotates image by a specified number of multiples of 90 degrees clockwise
+vector<vector<Pixel>> process_5(const vector<vector<Pixel>>& image, int height, int width, int number){
+    vector<vector<Pixel>> p5_image(height, vector<Pixel> (width));
+    return p5_image;
+}
+// process 6 - Enlarges the image in the x and y direction
+vector<vector<Pixel>> process_6(const vector<vector<Pixel>>& image, int height, int width, int x_scale, int y_scale){
+    vector<vector<Pixel>> p6_image(height, vector<Pixel> (width));
+    return p6_image;
+}
+// process 7 - Convert image to high contrast (black and white only)
+vector<vector<Pixel>> process_7(const vector<vector<Pixel>>& image, int height, int width){
+    vector<vector<Pixel>> p7_image(height, vector<Pixel> (width));
+    return p7_image;
+}
+// process 8 - Lightens image by a scaling factor
+vector<vector<Pixel>> process_8(const vector<vector<Pixel>>& image, int height, int width, double scaling_factor){
+    vector<vector<Pixel>> p8_image(height, vector<Pixel> (width));
+    return p8_image;
+}
+// process 9 - Darkens image by a scaling factor
+vector<vector<Pixel>> process_9(const vector<vector<Pixel>>& image, int height, int width, double scaling_factor){
+    vector<vector<Pixel>> p9_image(height, vector<Pixel> (width));
+    return p9_image;
+}
+// process 10 - Converts image to only black, white, red, blue, and green
+vector<vector<Pixel>> process_10(const vector<vector<Pixel>>& image, int height, int width){
+    vector<vector<Pixel>> p10_image(height, vector<Pixel> (width));
+    return p10_image;
+}
+
+int main() {
+    cout << "Please enter an image file name with its suffix: " << endl;
+    string og_filename;
+    string new_filename;
+    // const vector<vector<Pixel>> new_image;
+    cin >> og_filename;
+    
+    vector<vector<Pixel>> image = read_image(og_filename);  // Read image file and store in 2D vector named image
+    int num_rows = image.size();  // HEIGHT Gets the number of rows (i.e. height) in a 2D vector named image
+    int num_columns = image[0].size();  // WIDTH Gets the number of columns (i.e. width) in a 2D vector named image
+
+    vector<vector<Pixel>> new_image(num_rows, vector<Pixel> (num_columns));
+    // removed const from infront of vector
+    bool run = true; // conditional for while loop
+    while(run){
+        cout << "Select which image process to use or whether you would like to change the input image by entering the corresponding numerical value:" << endl << "1 - Vignette" << endl << "2 - Clarendon" << endl << "3 - Grayscale" << endl << "4 - Rotates 90 degrees clockwise" << endl << "5 - Rotates image by specified multiples of 90 degrees clockwise" << endl << "6 - Enlarges image" << endl << "7 - High contrast (black and white only)" << endl << "8 - Lightens image" << endl << "9 - Darkens image" << endl << "10 - Converts image to black, white, red, blue, and green" << endl << "11 - To change image" << endl;
+        int option;
+        cin >> option; // user's response to question above
+        
+        if (option == 11){ // if they reply with 11, ask again what the file name is
+            cout << "What is the input file name with its suffix that you want to replace the previous image file?" << endl;
+            cin >> og_filename; // save new file name to variable
+            return 0;
+        }
+        
+        cout << "What would you like your new file name to be with the suffix?" << endl;
+        cin >> new_filename; // save new file name to variable
+        
+        switch (option) { // switch cases to run through the options provided above
+            case 1: // Adds vignette effect to image (dark corners)
+                new_image = process_1(image, num_rows, num_columns);
+                //run = false;
+                // vector<vector<Pixel>> process_1(const vector<vector<Pixel>>& image);
+                break;
+            case 2: // Adds Clarendon effect to image (darks darker and lights lighter) by a scaling factor
+                cout << "How much would you like to apply the Clarendon effect?" << endl;
+                double clarendon;
+                cin >> clarendon;
+                new_image = process_2(image, num_rows, num_columns, clarendon);
+                //vector<vector<Pixel>> process_2(const vector<vector<Pixel>>& image, double scaling_factor);
+                break;
+            case 3: // Grayscale image
+                new_image = process_3(image, num_rows, num_columns);
+                // vector<vector<Pixel>> process_3(const vector<vector<Pixel>>& image);
+                break;
+            case 4: // Rotates image by 90 degrees clockwise (not counter-clockwise)
+                new_image = process_4(image, num_rows, num_columns);
+                // vector<vector<Pixel>> process_4(const vector<vector<Pixel>>& image);
+                break;
+            case 5: // Rotates image by a specified number of multiples of 90 degrees clockwise
+                cout << "How many times would you like to rotate the image by 90 degrees clockwise?" << endl;
+                int rotations;
+                cin >> rotations;
+                new_image = process_5(image, num_rows, num_columns, rotations);
+                // vector<vector<Pixel>> process_5(const vector<vector<Pixel>>& image, int number);
+                break;
+            case 6: // Enlarges the image in the x and y direction
+                cout << "How much would you like to enlargen the image length-wise?" << endl;
+                int length;
+                cin >> length;
+                cout << "How much would you like to enlargen the image width-wise?" << endl;
+                int width;
+                cin >> width;
+                new_image = process_6(image, num_rows, num_columns, length, width);
+                // vector<vector<Pixel>> process_6(const vector<vector<Pixel>>& image, int x_scale, int y_scale);
+                break;
+            case 7: // Convert image to high contrast (black and white only)
+                new_image = process_7(image, num_rows, num_columns);
+                // vector<vector<Pixel>> process_7(const vector<vector<Pixel>>& image);
+                break;
+            case 8: // Lightens image by a scaling factor
+                cout << "How much would you like to lighten your image?" << endl;
+                double lighten;
+                cin >> lighten;
+                new_image = process_8(image, num_rows, num_columns, lighten);
+                vector<vector<Pixel>> process_8(const vector<vector<Pixel>>& image, double scaling_factor);
+                break;
+            case 9: // Darkens image by a scaling factor
+                cout << "How much would you like to darken your image?" << endl;
+                double darken;
+                cin >> darken;
+                new_image = process_9(image, num_rows, num_columns, darken);
+                // vector<vector<Pixel>> process_9(const vector<vector<Pixel>>& image, double scaling_factor);
+                break;
+            case 10: // Converts image to only black, white, red, blue, and green
+                new_image = process_10(image, num_rows, num_columns);
+                // vector<vector<Pixel>> process_10(const vector<vector<Pixel>>& image);
+                break;
+            default:
+                break;
+        }
+       bool success = write_image("new_file.bmp", new_image);  // Write 2D vector named new_image to file named new_file.bmp
+
+    }
+    return 0;
+}
+/*
+vector<vector<Pixel>> read_image(string filename);
+bool write_image(string new_filename, const vector<vector<Pixel>>& new_image);
+// process 1 - Adds vignette effect to image (dark corners)
+vector<vector<Pixel>> process_1(const vector<vector<Pixel>>& image, int num_rows, int num_columns){
+    
+     def process1(img):
+         width=img.getWidth()
+         height=img.getHeight()
+         newimg = image.EmptyImage(width,height)
+         for row in range(height):
+             for col in range(width):
+                 p = img.getPixel(col, row)
+                 # find the distance to the center
+                 distance = math.sqrt((col - width/2)**2+(row - height/2)**2)
+                 scaling_factor = (height - distance)/height
+                 newred = p.getRed()*scaling_factor
+                 newgreen = p.getGreen()*scaling_factor
+                 newblue = p.getBlue()*scaling_factor
+                 #set new pixel to new color values.
+                 newpixel = image.Pixel(newred, newgreen, newblue)
+                 newimg.setPixel(col, row, newpixel)
+
+         newwin=image.ImageWin(width,height)
+         newimg.draw(newwin)
+
+         return newimg
+     
+    //int num_rows = image.size();  // WIDTH Gets the number of rows (i.e. height) in a 2D vector named image
+    //int num_columns = image[0].size();  // HEIGHT Gets the number of columns (i.e. width) in a 2D vector named image
+
+    //vector<vector<Pixel>> new_image(num_rows, vector<Pixel> (num_columns));
+    for (int row = 0; row < num_rows; row++)
+    {
+        for (int col = 0; col < num_columns; col++)
+        {
+            int distance = pow(sqrt((col - num_columns / 2)), 2) + pow(sqrt((row - num_rows / 2)), 2);
+            int scaleFact = (num_rows - distance) / num_columns;
+            int blue_color = image[row][col].blue;
+            int red_color = image[row][col].red;
+            int green_color = image[row][col].green;
+            int newBlue = blue_color * scaleFact;
+            int newRed = red_color * scaleFact;
+            int newGreen = green_color * scaleFact;
+            // Get the blue color for the Pixel located at index row, col in the input 2D vector
+            
+            // Set the blue color for the Pixel located at index row, col in a new 2D vector to 50
+            //new_image[row][col].blue = 50;
+        }
+    }
+}
+// process 2 - Adds Clarendon effect to image (darks darker and lights lighter) by a scaling factor
+vector<vector<Pixel>> process_2(const vector<vector<Pixel>>& image, double scaling_factor);
+// process 3 - Grayscale image
+vector<vector<Pixel>> process_3(const vector<vector<Pixel>>& image);
+// process 4 - Rotates image by 90 degrees clockwise (not counter-clockwise)
+vector<vector<Pixel>> process_4(const vector<vector<Pixel>>& image);
+// process 5 - Rotates image by a specified number of multiples of 90 degrees clockwise
+vector<vector<Pixel>> process_5(const vector<vector<Pixel>>& image, int number);
+// process 6 - Enlarges the image in the x and y direction
+vector<vector<Pixel>> process_6(const vector<vector<Pixel>>& image, int x_scale, int y_scale);
+// process 7 - Convert image to high contrast (black and white only)
+vector<vector<Pixel>> process_7(const vector<vector<Pixel>>& image);
+// process 8 - Lightens image by a scaling factor
+vector<vector<Pixel>> process_8(const vector<vector<Pixel>>& image, double scaling_factor);
+// process 9 - Darkens image by a scaling factor
+vector<vector<Pixel>> process_9(const vector<vector<Pixel>>& image, double scaling_factor);
+// process 10 - Converts image to only black, white, red, blue, and green
+vector<vector<Pixel>> process_10(const vector<vector<Pixel>>& image);
+*/
